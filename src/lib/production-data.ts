@@ -59,9 +59,18 @@ export const urgentTask = {
   hint: "Retire o carrinho do forno e leve para a área de resfriamento.",
 };
 
-export const initialTasks: Task[] = [
+const taskSeeds: Omit<Task, "id">[] = [
   {
-    id: "t1",
+    kind: "aguardando",
+    title: "PREPARE ESTE CARRINHO",
+    cart: "CARRINHO 14",
+    units: 320,
+    product: "Bisnaguinha",
+    minutes: "12:00",
+    minutesLabel: "faltam",
+    cta: "Começar preparo",
+  },
+  {
     kind: "forno-entrada",
     title: "COLOQUE NO FORNO",
     cart: "CARRINHO 11",
@@ -71,7 +80,25 @@ export const initialTasks: Task[] = [
     cta: "Coloquei no forno",
   },
   {
-    id: "t2",
+    kind: "assando",
+    title: "ASSANDO",
+    cart: "CARRINHO 09",
+    units: 410,
+    product: "Pão Francês",
+    minutes: "04:32",
+    minutesLabel: "retirar em",
+  },
+  {
+    kind: "forno-saida",
+    title: "TIRE DO FORNO AGORA",
+    cart: "CARRINHO 08",
+    units: 465,
+    product: "Pão Francês",
+    minutes: "00:00",
+    minutesLabel: "agora",
+    cta: "Retirei do forno",
+  },
+  {
     kind: "camara",
     title: "RETIRE DA CÂMARA FRIA",
     cart: "CARRINHO 03",
@@ -81,7 +108,6 @@ export const initialTasks: Task[] = [
     cta: "Retirei da câmara",
   },
   {
-    id: "t3",
     kind: "balcao",
     title: "LEVE PARA O BALCÃO",
     cart: "CARRINHO 05",
@@ -91,17 +117,15 @@ export const initialTasks: Task[] = [
     cta: "Levei pro balcão",
   },
   {
-    id: "t4",
     kind: "preparo",
     title: "PREPARE O PRÓXIMO LOTE",
     cart: "CARRINHO 12",
     units: 300,
     product: "Pão Integral",
     minutes: "12:15",
-    cta: "Iniciar preparo",
+    cta: "Começar preparo",
   },
   {
-    id: "t5",
     kind: "higiene",
     title: "HIGIENIZAÇÃO",
     note: "Equipamentos do forno · Após o último lote",
@@ -109,6 +133,17 @@ export const initialTasks: Task[] = [
     cta: "Ver orientações",
   },
 ];
+
+export const initialTasks: Task[] = Array.from({ length: 20 }, (_, i) => {
+  const seed = taskSeeds[i % taskSeeds.length]!;
+  const cartNumber = 3 + i;
+  return {
+    ...seed,
+    id: `t${i + 1}`,
+    ...(seed.cart ? { cart: `CARRINHO ${String(cartNumber).padStart(2, "0")}` } : {}),
+    minutes: seed.minutes,
+  };
+});
 
 export const initialEquipment: Equipment[] = [
   { id: "e1", name: "Forno 01", type: "Forno", status: "em-uso", product: "Pão Francês", units: 465, stage: "Assando", since: "09:41" },
