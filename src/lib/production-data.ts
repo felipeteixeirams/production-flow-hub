@@ -6,7 +6,15 @@ export type Stage =
   | "Resfriamento"
   | "Balcão";
 
-export type ActionKind = "forno-entrada" | "forno-saida" | "camara" | "balcao" | "preparo" | "higiene";
+export type ActionKind =
+  | "aguardando"
+  | "forno-entrada"
+  | "assando"
+  | "forno-saida"
+  | "camara"
+  | "balcao"
+  | "preparo"
+  | "higiene";
 
 export type Task = {
   id: string;
@@ -17,7 +25,8 @@ export type Task = {
   product?: string;
   note?: string;
   minutes: string;
-  cta: string;
+  minutesLabel?: string;
+  cta?: string;
 };
 
 export type EquipmentType = "Esqueleto" | "Estufa" | "Forno";
