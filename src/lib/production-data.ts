@@ -27,11 +27,11 @@ export type Equipment = {
   name: string;
   type: EquipmentType;
   status: "em-uso" | "livre" | "manutencao";
-  product?: string;
-  units?: number;
-  stage?: Stage;
-  since?: string;
-  reason?: string;
+  product?: string | undefined;
+  units?: number | undefined;
+  stage?: Stage | undefined;
+  since?: string | undefined;
+  reason?: string | undefined;
 };
 
 export type LogEntry = {
